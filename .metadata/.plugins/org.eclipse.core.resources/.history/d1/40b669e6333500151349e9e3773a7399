@@ -1,0 +1,97 @@
+package com.srivastava.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+import com.srivastava.dto.EmployeeDTO;
+
+public class DAO {
+	
+	ResourceBundle resourceBundle;
+	private void readPropertyFile(){
+		resourceBundle = ResourceBundle.getBundle("db");
+	}
+	public DAO(){
+		readPropertyFile();
+	}
+	private String getDriver(){
+		return resourceBundle.getString("drivername");
+	}
+	private String getConnectionURL(){
+		return resourceBundle.getString("connectionurl");
+	}
+	private String getUser(){
+		return resourceBundle.getString("userid");
+	}
+	private String getPassword(){
+		return resourceBundle.getString("password");
+	}
+	
+	private Connection getConnection() throws ClassNotFoundException, SQLException{
+		Class.forName(getDriver()); 
+		Connection con = null;
+		con = DriverManager.getConnection(getConnectionURL(),getUser(),getPassword());
+		return con;
+	}
+	
+	private String createDynamicSQL(EmployeeDTO empDTO){ 
+		boolean isWhereAttach = false;
+		StringBuilder sql = new StringBuilder("select id , name ,salary from employee ");
+		if(empDTO!=null){
+			if(empDTO.getId()>0){
+				sql.append(" where id=").append(empDTO.getId());
+				isWhereAttach = true;
+			}
+			if(empDTO.getName()!=null && empDTO.getName().trim().length()>0){
+				if(isWhereAttach){
+					sql.append(" and name='").append(empDTO.getName()).append("'");
+				}
+				else
+				{
+					sql.append(" where name='").append(empDTO.getName()).append("'");
+					isWhereAttach = true;
+				}
+			}
+			if(empDTO.getSalary()>0 && !isWhereAttach){
+				sql.append(" where salary>=").append(empDTO.getSalary());
+				isWhereAttach = true;
+			}
+			else
+			{
+				sql.append(" and salary>=").append(empDTO.getSalary());
+				
+			}
+		}
+		return sql.toString();
+	}
+	
+	public ArrayList<EmployeeDTO> getEmployees(EmployeeDTO empDTO) throws SQLException, ClassNotFoundException{
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try
+		{
+			con = this.getConnection();
+			pstmt = con.prepareStatement(createDynamicSQL(empDTO));
+			
+		}
+		finally{
+			if(rs!=null){
+				rs.close();
+			}
+			if(pstmt!=null){
+				pstmt.close();
+			}
+			if(con!=null){
+				con.close();
+			}
+		}
+	}
+	 
+
+}

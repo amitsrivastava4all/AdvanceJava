@@ -1,0 +1,33 @@
+package com.srivastava.dao;
+
+public class DAO {
+	
+	ResourceBundle resourceBundle;
+	private void readPropertyFile(){
+		resourceBundle = ResourceBundle.getBundle("db");
+	}
+	public UserDAO(){
+		readPropertyFile();
+	}
+	private String getDriver(){
+		return resourceBundle.getString("drivername");
+	}
+	private String getConnectionURL(){
+		return resourceBundle.getString("connectionurl");
+	}
+	private String getUser(){
+		return resourceBundle.getString("userid");
+	}
+	private String getPassword(){
+		return resourceBundle.getString("password");
+	}
+	
+	private Connection getConnection() throws ClassNotFoundException, SQLException{
+		Class.forName(getDriver()); 
+		Connection con = null;
+		con = DriverManager.getConnection(getConnectionURL(),getUser(),getPassword());
+		return con;
+	}
+	 
+
+}

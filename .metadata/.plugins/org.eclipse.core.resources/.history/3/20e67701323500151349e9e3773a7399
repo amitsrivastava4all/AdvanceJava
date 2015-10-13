@@ -1,0 +1,5 @@
+package com.srivastava.dto;
+
+public class EmployeeDTO {
+
+}

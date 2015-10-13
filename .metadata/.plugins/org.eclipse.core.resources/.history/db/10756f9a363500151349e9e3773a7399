@@ -1,0 +1,7 @@
+package com.srivastava.ui;
+
+import javax.swing.table.AbstractTableModel;
+
+public class EmployeeModel extends AbstractTableModel  {
+
+}

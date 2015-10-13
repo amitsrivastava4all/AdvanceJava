@@ -1,0 +1,28 @@
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+
+public class AdvanceSearch extends JFrame {
+
+	
+	public static void main(String[] args) {
+		
+					AdvanceSearch frame = new AdvanceSearch();
+					frame.setVisible(true);
+				
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public AdvanceSearch() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		getContentPane().setLayout(null);
+	}
+
+}

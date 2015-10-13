@@ -1,0 +1,9 @@
+package com.srivastava.dto;
+
+public class EmployeeDTO {
+	private int id;
+	private String name;
+	private double salary;
+	
+
+}
