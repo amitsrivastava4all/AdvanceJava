@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" metadata-complete="true" version="3.1">
+  <context-param>
+      <param-name>email</param-name>
+      <param-value>mike@support.com</param-value>
+  </context-param>
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  
+</web-app>
