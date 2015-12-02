@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+	<struts>
+
+	    <package name="default" namespace="/" extends="struts-default">
+	   		<interceptors>
+    				<interceptor name="mylogging"
+        						class="com.srivastava.basics.LoggingInterceptor">
+    		</interceptor>
+    		<interceptor-stack name="loggingStack">
+        		<interceptor-ref name="mylogging" />
+        		<interceptor-ref name="defaultStack" />
+    		</interceptor-stack>
+			</interceptors>     
+	        
+	        <action name="welcome" class="com.srivastava.basics.MyAction">
+	            <interceptor-ref name="loggingStack"/>
+	            <result name="success">/index.jsp</result>
+	        </action>
+	        
+	    </package>
+	</struts>
